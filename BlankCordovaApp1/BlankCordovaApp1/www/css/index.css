@@ -41,13 +41,15 @@ body {
     float: none;
     margin: 0px;
     position: fixed;
+    width: 100%;
 }
 
-#tab {
+#tabs td {
     margin: 0px;
     padding-left: 17px;
     padding-right: 17px;
     border: 1px solid black;
+    text-align: center;
 }
 
 #heading {

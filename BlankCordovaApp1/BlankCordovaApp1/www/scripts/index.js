@@ -14,7 +14,7 @@
 
         //Handle selecting logout by presenting confirmation dialog box
         document.getElementById('logout').addEventListener('click', function () {
-            confirm('Are You sure you want to logout?');
+            confirm("Are you sure you want to logout?");
         });
         
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
