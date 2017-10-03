@@ -16,7 +16,9 @@
         document.getElementById('logout').addEventListener('click', function () {
             confirm("Are you sure you want to logout?");
         });
-        
+
+        //TODO: add html code generator for code display
+
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
         var parentElement = document.getElementById('deviceready');
         var listeningElement = parentElement.querySelector('.listening');
