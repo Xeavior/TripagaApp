@@ -44,6 +44,29 @@ body {
     width: 100%;
 }
 
+#tabs td{
+    width: 33.33%;
+}
+
+#dataNode{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#dataNode td {
+    text-align: center;
+    border-bottom: 1pt solid black;
+    width: 50%;
+}
+
+#star{
+    text-align: left;
+}
+
+#dataAmount{
+    text-align: left;
+}
+
 #tabs td {
     margin: 0px;
     padding-left: 17px;
@@ -59,12 +82,17 @@ body {
     border-bottom: 1px solid black;
 }
 
+#title {
+    padding-top: 1em;
+
+}
+
 a {
     text-decoration: none;
     color: black;
 }
 
-.app {
+#app {
     float: left;
     clear: both;
     padding-top: 5em;
