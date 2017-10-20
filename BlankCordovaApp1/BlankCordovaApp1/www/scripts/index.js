@@ -64,11 +64,11 @@
     function favoriteItem(favorite, title) {
         if (favorite.src == "http://localhost:4400/common/EmptyStar.png") {
             favorite.src = "http://localhost:4400/common/FilledStar.png";
-            alert(title + ' has been favorited');
+            //alert(title + ' has been favorited');
         }
         else {
             favorite.src = "http://localhost:4400/common/EmptyStar.png";
-            alert(title + ' has been unfavorited');
+            //alert(title + ' has been unfavorited');
         }
     };
 
