@@ -92,6 +92,16 @@ a {
     color: black;
 }
 
+#loginPage {
+    float: left;
+    clear: both;
+    margin-top: 5em;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
 #app {
     float: left;
     clear: both;
