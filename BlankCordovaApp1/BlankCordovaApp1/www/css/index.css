@@ -92,6 +92,30 @@ a {
     color: black;
 }
 
+#tabs #credentials {
+    background-color: transparent;
+    font-size: 24px;
+    font-weight: normal;
+    clear: both;
+    float: none;
+    margin: 0px;
+    position: fixed;
+    width: 100%;
+}
+
+#credentials td {
+    border: 0px;
+}
+
+#credentials form{
+    margin-top: 25px;
+}
+
+#credentials input{
+    font-size: 25px;
+    margin: 30px;
+}
+
 #loginPage {
     float: left;
     clear: both;
