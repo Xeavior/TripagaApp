@@ -2,7 +2,7 @@
 * Jasen Skipworth
 * Contains functions needed navigating tabs, logging out, and displaying data
 * for all.html and favorites.html
-* 11/10/17
+* 11/11/17
 */
 (function () {
     "use strict";
@@ -25,6 +25,30 @@
 
         });
 
+        var allTab = document.getElementById("allTab");
+        var favTab = document.getElementById("favTab");
+
+        allTab.addEventListener("click", function () {
+            if (location.pathname != "/all.html")
+                location.replace('all.html')
+        });
+
+        favTab.addEventListener("click", function () {
+            if (location.pathname != "/favorites.html")
+                location.replace('favorites.html');
+        });
+
+        if (location.pathname === "/favorites.html") {
+            if (document.getElementById("active") != null)
+                document.getElementById("active").id = "allTab";
+            favTab.id = "active";
+        }
+
+        if (location.pathname === "/all.html") {
+            if (document.getElementById("active") != null)
+                document.getElementById("active").id = "favTab";
+            allTab.id = "active";
+        }
         //html code generator for code display
         var app = document.getElementById('app');
 

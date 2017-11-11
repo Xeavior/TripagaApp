@@ -1,7 +1,7 @@
 ﻿/*
 * Jasen Skipworth
 * Contains functions needed for logging into the application on index.html
-* 11/10/17
+* 11/11/17
 */
 (function () {
     "use strict";
@@ -22,6 +22,23 @@
             if (adminLogin[0].toLowerCase == document.getElementById("username").value.toLowerCase && adminLogin[1] === document.getElementById("password").value)
                 location.replace('all.html');
         });
+
+        document.getElementById("username").addEventListener("keypress", function (event) {
+            if (event.keyCode === 13) {
+                document.getElementById("password").focus();
+                event.preventDefault();
+            }
+        });
+
+        document.getElementById("password").addEventListener("keypress", function (event) {
+            if (event.keyCode === 13) {
+                if (adminLogin[0].toLowerCase == document.getElementById("username").value.toLowerCase && adminLogin[1] === document.getElementById("password").value)
+                    location.replace('all.html');
+                event.preventDefault();
+            }
+        });
+
+
 
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
         var parentElement = document.getElementById('deviceready');
