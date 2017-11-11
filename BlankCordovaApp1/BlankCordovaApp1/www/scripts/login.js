@@ -14,8 +14,12 @@
         document.addEventListener('pause', onPause.bind(this), false);
         document.addEventListener('resume', onResume.bind(this), false);
 
+        var adminLogin = ["admin", "ID10t!"];
+
         document.getElementById('login').addEventListener('click', function () {
-            location.replace('all.html');
+
+            if (adminLogin[0].toLowerCase == document.getElementById("username").value.toLowerCase && adminLogin[1] === document.getElementById("password").value)
+                location.replace('all.html');
         });
 
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
