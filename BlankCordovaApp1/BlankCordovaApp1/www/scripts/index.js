@@ -55,6 +55,7 @@
         var dataNodes = 2;
         var dataEntries = 2;
         var HTML = '';
+        var favStorage = window.localStorage;
         
         dataTitle = [ 'Water Pressure Gauge', 'Oil Flow Rate'];
         var dataType = ['Pressure', 'Moving Volume'];
@@ -75,7 +76,7 @@
             (function () {
                 var favoriteStar = favorites[k];
                 var dataNodeName = dataTitle[k];
-                favorites[k].addEventListener('click', function () { favoriteItem(favoriteStar, dataNodeName); });
+                favorites[k].addEventListener('click', function () { favoriteItem(favoriteStar, dataNodeName, favStorage); });
             }());
         }
 
@@ -91,15 +92,33 @@
 
     //function toggles favorite's stars
     //TODO: add flag to indicate a foavorited item and have it display on the favorites tab  
-    function favoriteItem(favorite, title) {
+    function favoriteItem(favorite, title, favStorage) {
         if (favorite.src == "http://localhost:4400/common/EmptyStar.png") {
             favorite.src = "http://localhost:4400/common/FilledStar.png";
             //alert(title + ' has been favorited');
+            createFavoriteStorage(favorite, title, favStorage)
         }
         else {
             favorite.src = "http://localhost:4400/common/EmptyStar.png";
             //alert(title + ' has been unfavorited');
+            removeFavoriteStorage(title, favStorage)
         }
+    };
+
+    function createFavoriteStorage(favorite, title, favStorage) {
+
+        for (var j = 0; j < favorite.length; j++)
+        {
+            if (favorite.src == "http://localhost:4400/common/FilledStar.png") {
+                favStorage.setItem(favorite, title);
+            }
+        }
+
+    };
+
+    function removeFavoriteStorage(favorite, favStorage)
+    {
+        favStorage.removeItem(favorite);
     };
 
     function onPause() {
