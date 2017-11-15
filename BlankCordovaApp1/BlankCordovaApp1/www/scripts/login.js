@@ -6,7 +6,8 @@
 (function () {
     "use strict";
 
-    var dataTitle;
+    var dataTitle, adminLogin;
+
 
     document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 
@@ -15,12 +16,14 @@
         document.addEventListener('pause', onPause.bind(this), false);
         document.addEventListener('resume', onResume.bind(this), false);
 
-        var adminLogin = ["admin", "ID10t!"];
+        adminLogin = ["admin", "ID10t!"];
 
         document.getElementById('login').addEventListener('click', function () {
-
-            if (adminLogin[0].toLowerCase == document.getElementById("username").value.toLowerCase && adminLogin[1] === document.getElementById("password").value)
+            console.log(adminLogin);
+            if ((adminLogin[1] === document.getElementById("password").value)&&(adminLogin[0] == document.getElementById("username").value.toLowerCase()))
                 location.replace('all.html');
+            else
+                document.getElementById("loginAttemptNote").innerHTML = '<p id="invalidLogin"> Username or Password was incorrect please try again </p>';
         });
 
         document.getElementById("username").addEventListener("keypress", function (event) {
@@ -32,13 +35,13 @@
 
         document.getElementById("password").addEventListener("keypress", function (event) {
             if (event.keyCode === 13) {
-                if (adminLogin[0].toLowerCase == document.getElementById("username").value.toLowerCase && adminLogin[1] === document.getElementById("password").value)
+                if ((adminLogin[1] === document.getElementById("password").value) && (adminLogin[0] == document.getElementById("username").value.toLowerCase()))
                     location.replace('all.html');
+                else
+                    document.getElementById("loginAttemptNote").innerHTML = '<p id="invalidLogin"> Username or Password was incorrect please try again </p>';
                 event.preventDefault();
             }
         });
-
-
 
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
         var parentElement = document.getElementById('deviceready');

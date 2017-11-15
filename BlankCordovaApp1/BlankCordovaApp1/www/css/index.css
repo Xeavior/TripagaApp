@@ -75,6 +75,11 @@ body {
     text-align: center;
 }
 
+#invalidLogin{
+    color: red;
+    font-size: 20px;
+}
+
 #heading {
     font-size: 12px;
     font-weight: bold;

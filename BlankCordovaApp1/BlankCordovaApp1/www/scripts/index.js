@@ -1,5 +1,5 @@
 ﻿/*
-* Jasen Skipworth
+* Jasen Skipworth, Kevin Rogers
 * Contains functions needed navigating tabs, logging out, and displaying data
 * for all.html and favorites.html
 * 11/11/17
