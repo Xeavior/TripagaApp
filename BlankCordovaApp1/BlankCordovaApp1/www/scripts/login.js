@@ -19,7 +19,6 @@
         adminLogin = ["admin", "ID10t!"];
 
         document.getElementById('login').addEventListener('click', function () {
-            console.log(adminLogin);
             if ((adminLogin[1] === document.getElementById("password").value)&&(adminLogin[0] == document.getElementById("username").value.toLowerCase()))
                 location.replace('all.html');
             else
