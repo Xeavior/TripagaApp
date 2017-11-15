@@ -1,7 +1,7 @@
 ﻿/*
 * Jasen Skipworth
 * Contains functions needed for logging into the application on index.html
-* 11/11/17
+* 11/15/17
 */
 (function () {
     "use strict";

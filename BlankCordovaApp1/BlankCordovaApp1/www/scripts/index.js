@@ -2,7 +2,7 @@
 * Jasen Skipworth, Kevin Rogers
 * Contains functions needed navigating tabs, logging out, and displaying data
 * for all.html and favorites.html
-* 11/11/17
+* 11/15/17
 */
 (function () {
     "use strict";
@@ -61,15 +61,16 @@
         var dataType = ['Pressure', 'Moving Volume'];
         var dataAmount = ['123456 lbs/in^2','123445 in^3/sec'];
 
-        HTML = '<table id="dataNode"> ';
-        for (var i = 0; i < dataNodes; i++) {
-            HTML += '<tr> <th id="title"> ' + dataTitle[i] + ' </th><th id="star"><img src="../common/EmptyStar.png" alt="Favorite Star" height="18px" class="favorite"></th></tr>';
-            for (var c = 0; c < dataEntries; c++) {
-                HTML += '<tr> <td> ' + dataType[c] + ' </td> <td id="dataAmount"> ' + dataAmount[c] + ' </td> </tr>';
+        if (location.pathname == "/all.html") {
+            HTML = '<table id="dataNode"> ';
+            for (var i = 0; i < dataNodes; i++) {
+                HTML += '<tr> <th id="title"> ' + dataTitle[i] + ' </th><th id="star"><img src="../common/EmptyStar.png" alt="Favorite Star" height="18px" class="favorite"></th></tr>';
+                for (var c = 0; c < dataEntries; c++) {
+                    HTML += '<tr> <td> ' + dataType[c] + ' </td> <td id="dataAmount"> ' + dataAmount[c] + ' </td> </tr>';
+                }
             }
+            app.innerHTML = HTML + ' </table>';
         }
-        app.innerHTML = HTML + ' </table>';
-
         //Handle selecting favorites
         var favorites = document.getElementsByClassName('favorite');
         for (var k = 0; k < dataNodes; k++) {
