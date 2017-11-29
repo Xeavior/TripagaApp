@@ -7,13 +7,21 @@
 (function () {
     "use strict";
 
-    var dataTitle;
+    var dataNodes = 3;
+    var dataEntries = 2;
+    var HTML = '';
+    var favStorage = window.localStorage;
+    var dataTitle = ['Water Pressure Gauge', 'Oil Flow Rate', 'Test'];
+    var dataType = ['Pressure', 'Moving Volume'];
+    var dataAmount = ['123456 lbs/in^2', '123445 in^3/sec'];
 
-    document.addEventListener( 'deviceready', onDeviceReady.bind( this ), false );
+    //var app (put here so can use with favorites)
+
+    document.addEventListener('deviceready', onDeviceReady.bind(this), false);
 
     function onDeviceReady() {
         // Handle the Cordova pause and resume events
-        document.addEventListener( 'pause', onPause.bind( this ), false );
+        document.addEventListener('pause', onPause.bind(this), false);
         document.addEventListener('resume', onResume.bind(this), false);
 
         //Handle selecting logout by presenting confirmation dialog box
@@ -52,32 +60,40 @@
         //html code generator for code display
         var app = document.getElementById('app');
 
-        var dataNodes = 2;
-        var dataEntries = 2;
-        var HTML = '';
-        var favStorage = window.localStorage;
-        
-        dataTitle = [ 'Water Pressure Gauge', 'Oil Flow Rate'];
-        var dataType = ['Pressure', 'Moving Volume'];
-        var dataAmount = ['123456 lbs/in^2','123445 in^3/sec'];
+        //check if storage exists for data title. create one at 0 if does not exist
+        dataTitle.forEach(function (currentValue) {
+            if (favStorage.getItem(currentValue) == null)
+                console.log("new item added");
+        });
 
         if (location.pathname == "/all.html") {
             HTML = '<table id="dataNode"> ';
             for (var i = 0; i < dataNodes; i++) {
-                HTML += '<tr> <th id="title"> ' + dataTitle[i] + ' </th><th id="star"><img src="../common/EmptyStar.png" alt="Favorite Star" height="18px" class="favorite"></th></tr>';
+                if (favStorage.getItem(dataTitle[i]) == "1")
+                    HTML += '<tr> <th id="title"> ' + dataTitle[i] + ' </th><th id="star"><img src="../common/FilledStar.png" alt="Favorite Star" height="18px" class="favorite"></th></tr>';
+                else
+                    HTML += '<tr> <th id="title"> ' + dataTitle[i] + ' </th><th id="star"><img src="../common/EmptyStar.png" alt="Favorite Star" height="18px" class="favorite"></th></tr>';
                 for (var c = 0; c < dataEntries; c++) {
                     HTML += '<tr> <td> ' + dataType[c] + ' </td> <td id="dataAmount"> ' + dataAmount[c] + ' </td> </tr>';
                 }
             }
             app.innerHTML = HTML + ' </table>';
         }
+
+        if (location.pathname == "/favorites.html") {
+            generateFavorites();
+        }
+
+
         //Handle selecting favorites
         var favorites = document.getElementsByClassName('favorite');
         for (var k = 0; k < dataNodes; k++) {
             (function () {
                 var favoriteStar = favorites[k];
                 var dataNodeName = dataTitle[k];
-                favorites[k].addEventListener('click', function () { favoriteItem(favoriteStar, dataNodeName, favStorage); });
+                favorites[k].addEventListener('click', function () {
+                    favoriteItem(favoriteStar, dataNodeName);
+                });
             }());
         }
 
@@ -86,40 +102,52 @@
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
 
-        
+
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
     };
 
     //function toggles favorite's stars
     //TODO: add flag to indicate a foavorited item and have it display on the favorites tab  
-    function favoriteItem(favorite, title, favStorage) {
+    function favoriteItem(favorite, title) {
         if (favorite.src == "http://localhost:4400/common/EmptyStar.png") {
             favorite.src = "http://localhost:4400/common/FilledStar.png";
             //alert(title + ' has been favorited');
-            createFavoriteStorage(favorite, title, favStorage)
+            favStorage.setItem(title, 1);
         }
         else {
             favorite.src = "http://localhost:4400/common/EmptyStar.png";
             //alert(title + ' has been unfavorited');
-            removeFavoriteStorage(title, favStorage)
+            favStorage.setItem(title, 0);
+            //call function to build favorites
+            if (location.pathname == "/favorites.html")
+                generateFavorites();
+
         }
     };
 
-    function createFavoriteStorage(favorite, title, favStorage) {
-
-        for (var j = 0; j < favorite.length; j++)
-        {
-            if (favorite.src == "http://localhost:4400/common/FilledStar.png") {
-                favStorage.setItem(favorite, title);
+    function generateFavorites() {
+        HTML = '<table id="dataNode"> ';
+        for (var i = 0; i < dataNodes; i++) {
+            if (favStorage.getItem(dataTitle[i]) == "1"){
+                HTML += '<tr> <th id="title"> ' + dataTitle[i] + ' </th><th id="star"><img src="../common/FilledStar.png" alt="Favorite Star" height="18px" class="favorite"></th></tr>';
+                for (var c = 0; c < dataEntries; c++) {
+                    HTML += '<tr> <td> ' + dataType[c] + ' </td> <td id="dataAmount"> ' + dataAmount[c] + ' </td> </tr>';
+                }
             }
         }
+        app.innerHTML = HTML + ' </table>';
 
-    };
-
-    function removeFavoriteStorage(favorite, favStorage)
-    {
-        favStorage.removeItem(favorite);
+        var favorites = document.getElementsByClassName('favorite');
+        for (var k = 0; k < favorites.length; k++) {
+            (function () {
+                var favoriteStar = favorites[k];
+                var dataNodeName = ;
+                favorites[k].addEventListener('click', function () {
+                    favoriteItem(favoriteStar, dataNodeName);
+                });
+            }());
+        }
     };
 
     function onPause() {
