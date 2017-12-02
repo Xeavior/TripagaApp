@@ -2,7 +2,7 @@
 * Jasen Skipworth, Kevin Rogers
 * Contains functions needed navigating tabs, logging out, and displaying data
 * for all.html and favorites.html
-* 11/15/17
+* 12/1/17
 */
 (function () {
     "use strict";
@@ -67,34 +67,11 @@
         });
 
         if (location.pathname == "/all.html") {
-            HTML = '<table id="dataNode"> ';
-            for (var i = 0; i < dataNodes; i++) {
-                if (favStorage.getItem(dataTitle[i]) == "1")
-                    HTML += '<tr> <th id="title"> ' + dataTitle[i] + ' </th><th id="star"><img src="../common/FilledStar.png" alt="Favorite Star" height="18px" class="favorite"></th></tr>';
-                else
-                    HTML += '<tr> <th id="title"> ' + dataTitle[i] + ' </th><th id="star"><img src="../common/EmptyStar.png" alt="Favorite Star" height="18px" class="favorite"></th></tr>';
-                for (var c = 0; c < dataEntries; c++) {
-                    HTML += '<tr> <td> ' + dataType[c] + ' </td> <td id="dataAmount"> ' + dataAmount[c] + ' </td> </tr>';
-                }
-            }
-            app.innerHTML = HTML + ' </table>';
+            generateAll();
         }
 
         if (location.pathname == "/favorites.html") {
             generateFavorites();
-        }
-
-
-        //Handle selecting favorites
-        var favorites = document.getElementsByClassName('favorite');
-        for (var k = 0; k < dataNodes; k++) {
-            (function () {
-                var favoriteStar = favorites[k];
-                var dataNodeName = dataTitle[k];
-                favorites[k].addEventListener('click', function () {
-                    favoriteItem(favoriteStar, dataNodeName);
-                });
-            }());
         }
 
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
@@ -120,17 +97,20 @@
             //alert(title + ' has been unfavorited');
             favStorage.setItem(title, 0);
             //call function to build favorites
-            if (location.pathname == "/favorites.html")
+            if (location.pathname == "/favorites.html") {
                 generateFavorites();
-
+                favorite.removeEventListener('click', function () {
+                    favoriteItem(favoriteStar, dataNodeName);
+                });
+            }
         }
     };
 
     function generateFavorites() {
         HTML = '<table id="dataNode"> ';
         for (var i = 0; i < dataNodes; i++) {
-            if (favStorage.getItem(dataTitle[i]) == "1"){
-                HTML += '<tr> <th id="title"> ' + dataTitle[i] + ' </th><th id="star"><img src="../common/FilledStar.png" alt="Favorite Star" height="18px" class="favorite"></th></tr>';
+            if (favStorage.getItem(dataTitle[i]) == "1") {
+                HTML += '<tr> <th id="title"> ' + dataTitle[i] + ' </th><th id="star"><img src="../common/FilledStar.png" alt="Favorite Star" height="18px" class="favorite" id="' + dataTitle[i] + '"></th></tr>';
                 for (var c = 0; c < dataEntries; c++) {
                     HTML += '<tr> <td> ' + dataType[c] + ' </td> <td id="dataAmount"> ' + dataAmount[c] + ' </td> </tr>';
                 }
@@ -142,13 +122,40 @@
         for (var k = 0; k < favorites.length; k++) {
             (function () {
                 var favoriteStar = favorites[k];
-                var dataNodeName = ;
+                var dataNodeName = favorites[k].id;
                 favorites[k].addEventListener('click', function () {
                     favoriteItem(favoriteStar, dataNodeName);
                 });
             }());
         }
     };
+
+    function generateAll() {
+        HTML = '<table id="dataNode"> ';
+        for (var i = 0; i < dataNodes; i++) {
+            if (favStorage.getItem(dataTitle[i]) == "1")
+                HTML += '<tr> <th id="title"> ' + dataTitle[i] + ' </th><th id="star"><img src="../common/FilledStar.png" alt="Favorite Star" height="18px" class="favorite" id="' + dataTitle[i] + '"></th></tr>';
+            else
+                HTML += '<tr> <th id="title"> ' + dataTitle[i] + ' </th><th id="star"><img src="../common/EmptyStar.png" alt="Favorite Star" height="18px" class="favorite" id="' + dataTitle[i] + '"></th></tr>';
+            for (var c = 0; c < dataEntries; c++) {
+                HTML += '<tr> <td> ' + dataType[c] + ' </td> <td id="dataAmount"> ' + dataAmount[c] + ' </td> </tr>';
+            }
+        }
+        app.innerHTML = HTML + ' </table>';
+
+        //Handle selecting favorites
+        var favorites = document.getElementsByClassName('favorite');
+        for (var k = 0; k < dataNodes; k++) {
+            (function () {
+                var favoriteStar = favorites[k];
+                var dataNodeName = favorites[k].id;
+                favorites[k].addEventListener('click', function () {
+                    favoriteItem(favoriteStar, dataNodeName);
+                });
+            }());
+        }
+    }
+
 
     function onPause() {
         // TODO: This application has been suspended. Save application state here.

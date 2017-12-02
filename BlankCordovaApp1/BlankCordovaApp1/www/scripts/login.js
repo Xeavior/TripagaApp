@@ -1,7 +1,7 @@
 ﻿/*
 * Jasen Skipworth
 * Contains functions needed for logging into the application on index.html
-* 11/15/17
+* 12/1/17
 */
 (function () {
     "use strict";
@@ -19,10 +19,13 @@
         adminLogin = ["admin", "ID10t!"];
 
         document.getElementById('login').addEventListener('click', function () {
-            if ((adminLogin[1] === document.getElementById("password").value)&&(adminLogin[0] == document.getElementById("username").value.toLowerCase()))
+            if ((adminLogin[1] === document.getElementById("password").value) && (adminLogin[0] == document.getElementById("username").value.toLowerCase()))
                 location.replace('all.html');
-            else
+            else {
                 document.getElementById("loginAttemptNote").innerHTML = '<p id="invalidLogin"> Username or Password was incorrect please try again </p>';
+                document.getElementById("password").value = '';
+                document.getElementById("username").value = '';
+            }
         });
 
         document.getElementById("username").addEventListener("keypress", function (event) {
@@ -36,8 +39,11 @@
             if (event.keyCode === 13) {
                 if ((adminLogin[1] === document.getElementById("password").value) && (adminLogin[0] == document.getElementById("username").value.toLowerCase()))
                     location.replace('all.html');
-                else
+                else {
                     document.getElementById("loginAttemptNote").innerHTML = '<p id="invalidLogin"> Username or Password was incorrect please try again </p>';
+                    document.getElementById("password").value = '';
+                    document.getElementById("username").value = '';
+                }
                 event.preventDefault();
             }
         });
