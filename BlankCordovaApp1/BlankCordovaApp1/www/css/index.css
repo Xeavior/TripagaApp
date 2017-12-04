@@ -145,6 +145,18 @@ a {
     overflow: hidden;
 }
 
+#username {
+    width: 66%;
+}
+
+#password {
+    width: 66%;
+}
+
+#login {
+    width: 33%;
+}
+
 .event {
     border-radius:4px;
     -webkit-border-radius:4px;
