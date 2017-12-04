@@ -38,7 +38,7 @@
 
         allTab.addEventListener("click", function () {
             if (location.pathname != "/all.html")
-                location.replace('all.html')
+                location.replace('all.html');
         });
 
         favTab.addEventListener("click", function () {
@@ -62,8 +62,8 @@
 
         //check if storage exists for data title. create one at 0 if does not exist
         dataTitle.forEach(function (currentValue) {
-            if (favStorage.getItem(currentValue) == null)
-                console.log("new item added");
+            if (favStorage.getItem(currentValue) === null)
+                favStorage.setItem(currentValue, 0);
         });
 
         if (location.pathname == "/all.html") {

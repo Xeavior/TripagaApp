@@ -1,11 +1,11 @@
 {
      "android": {
-         "release": {
-             "keystore": "",
-             "storePassword": "",
-             "alias": "",
-             "password" : "",
-             "keystoreType": ""
-         }
+      "release": {
+        "keystore": "my-release-key.keystore",
+        "storePassword": "ID10t!",
+        "alias": "jasenS",
+        "password": "ID10t!",
+        "keystoreType": ""
+      }
      }
  }
